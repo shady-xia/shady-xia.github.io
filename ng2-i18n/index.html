@@ -1,0 +1,737 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="AngularJS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1.使用npm安装模块 12npm install --save @ngx-translate/core npm install --save @ngx-translate/http-loader 2.在项目的根模块app.module.ts中引入该模块 使用TranslateHttpLoader来从&amp;quot;/assets/i18n/[lang].json&amp;quot;载入语言文件">
+<meta name="keywords" content="AngularJS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular2中使用ngx-translate进行国际化">
+<meta property="og:url" content="http://yoursite.com/ng2-i18n/index.html">
+<meta property="og:site_name" content="Shady&#39;s blog">
+<meta property="og:description" content="1.使用npm安装模块 12npm install --save @ngx-translate/core npm install --save @ngx-translate/http-loader 2.在项目的根模块app.module.ts中引入该模块 使用TranslateHttpLoader来从&amp;quot;/assets/i18n/[lang].json&amp;quot;载入语言文件">
+<meta property="og:updated_time" content="2017-06-05T08:16:51.720Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular2中使用ngx-translate进行国际化">
+<meta name="twitter:description" content="1.使用npm安装模块 12npm install --save @ngx-translate/core npm install --save @ngx-translate/http-loader 2.在项目的根模块app.module.ts中引入该模块 使用TranslateHttpLoader来从&amp;quot;/assets/i18n/[lang].json&amp;quot;载入语言文件">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/ng2-i18n/"/>
+
+
+
+
+
+  <title>Angular2中使用ngx-translate进行国际化 | Shady's blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shady's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">分享 & 沉淀</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/ng2-i18n/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shady">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shady's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Angular2中使用ngx-translate进行国际化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-05T16:02:46+08:00">
+                2017-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1.使用npm安装模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install --save @ngx-translate/core </div><div class="line">npm install --save @ngx-translate/http-loader</div></pre></td></tr></table></figure>
+<p>2.在项目的根模块app.module.ts中引入该模块</p>
+<p>使用<code>TranslateHttpLoader</code>来从<code>&quot;/assets/i18n/[lang].json&quot;</code>载入语言文件</p>
+<a id="more"></a>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;BrowserModule&#125; <span class="keyword">from</span> <span class="string">'@angular/platform-browser'</span>;</div><div class="line"><span class="keyword">import</span> &#123;HttpModule, Http&#125; <span class="keyword">from</span> <span class="string">'@angular/http'</span>;</div><div class="line"><span class="keyword">import</span> &#123;TranslateModule, TranslateLoader&#125; <span class="keyword">from</span> <span class="string">'@ngx-translate/core'</span>;</div><div class="line"><span class="keyword">import</span> &#123;TranslateHttpLoader&#125; <span class="keyword">from</span> <span class="string">'@ngx-translate/http-loader'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">HttpLoaderFactory</span>(<span class="params">http: Http</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> TranslateHttpLoader(http, <span class="string">'./assets/i18n/'</span>, <span class="string">'.json'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">@(! AngularJS)NgModule(&#123;</div><div class="line">    imports: [</div><div class="line">        BrowserModule,</div><div class="line">        HttpModule,</div><div class="line">        TranslateModule.forRoot(&#123;</div><div class="line">            loader: &#123;</div><div class="line">                provide: TranslateLoader,</div><div class="line">                useFactory: HttpLoaderFactory,</div><div class="line">                deps: [Http]</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">    ],</div><div class="line">    bootstrap: [AppComponent]</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="keyword">class</span> AppModule &#123; &#125;</div></pre></td></tr></table></figure>
+<p>3.新建语言包文件</p>
+<p>在<code>assets</code>文件夹下新建<code>i18n</code>文件夹，并且新建两个语言的<code>json</code>文件。（比如zh-CN.json和en.json）</p>
+<p><code>json</code>文件是<code>key-value</code>形式的，<code>key</code>值代表要翻译的字符串，<code>value</code>值为特定语言的翻译结果，不同语言的文件一般<code>key</code>值是相同的，只是<code>value</code>值不同。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//zh-CN.json</div><div class="line">&#123;</div><div class="line">    &quot;welcome&quot;:&quot;欢迎使用本应用&quot;,</div><div class="line">    &quot;hello&quot;:&quot;你好&quot;,</div><div class="line">    &quot;get-lang&quot;:&quot;获取语言类型&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//en.json</div><div class="line">&#123;</div><div class="line">    &quot;welcome&quot;:&quot;welcome to this app&quot;,</div><div class="line">    &quot;hello&quot;:&quot;Hola&quot;,</div><div class="line">    &quot;get-lang&quot;:&quot;get the language type&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>4.在相应的组件中使用translate服务<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; TranslateService &#125; <span class="keyword">from</span> <span class="string">'@ngx-translate/core'</span></div><div class="line"><span class="meta">@Component</span>(&#123;</div><div class="line">  ...</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="keyword">class</span> AppComponent &#123;</div><div class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> translate: TranslateService</span>) &#123;</div><div class="line">    <span class="comment">//添加语言支持</span></div><div class="line">    translate.addLangs([<span class="string">'zh-CN'</span>, <span class="string">'en'</span>]);</div><div class="line">    <span class="comment">//设置默认语言，一般在无法匹配的时候使用</span></div><div class="line">    translate.setDefaultLang(<span class="string">'zh-CN'</span>);</div><div class="line"></div><div class="line">    <span class="comment">//获取当前浏览器环境的语言比如en、 zh</span></div><div class="line">    <span class="keyword">let</span> broswerLang = translate.getBrowserLang();</div><div class="line">	<span class="comment">//切换语言</span></div><div class="line">    translate.use(broswerLang.match(<span class="regexp">/en|zh-CN/</span>) ? broswerLang : <span class="string">'zh-CN'</span>);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  changeLang(lang) &#123;</div><div class="line">    <span class="built_in">console</span>.log(lang);</div><div class="line">    <span class="keyword">this</span>.translate.use(lang);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  toggleLang() &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.translate.getBrowserLang());</div><div class="line">    <span class="comment">//获取语言风格，相当于更详细的语言类型，比如zh-CN、zh-TW、en-US</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.translate.getBrowserCultureLang());</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>在模板中使用translate管道</p>
+<p>示例模板：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>&#123;&#123; title | translate &#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">label</span>&gt;</span></div><div class="line">    &#123;&#123; 'hello' | translate &#125;&#125;</div><div class="line">    <span class="tag">&lt;<span class="name">select</span> #<span class="attr">langSelect</span> (<span class="attr">change</span>)=<span class="string">"changeLang(langSelect.value)"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">option</span> *<span class="attr">ngFor</span>=<span class="string">"let lang of translate.getLangs()"</span> [<span class="attr">value</span>]=<span class="string">"lang"</span> [<span class="attr">selected</span>]=<span class="string">"lang === translate.currentLang"</span>&gt;</span>&#123;&#123; lang &#125;&#125;<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">"toggleLang()"</span>&gt;</span>&#123;&#123;'get-lang' | translate&#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>5.具体使用</p>
+<p>有三种方式来在模板中使用：通过service，通过pipe以及通过directive。</p>
+<p>例：en.json如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    &quot;HELLO&quot;: &quot;hello &#123;&#123;value&#125;&#125;&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>通过service：</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">translate.get(<span class="string">'HELLO'</span>, &#123;value: <span class="string">'world'</span>&#125;).subscribe(<span class="function">(<span class="params">res: <span class="built_in">string</span></span>) =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(res);</div><div class="line">    <span class="comment">//=&gt; 'hello world'</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li>通过管道</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;&#123; 'HELLO' | translate:param &#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>在component中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">param = &#123;value: &apos;world&apos;&#125;;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>通过指令</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> [<span class="attr">translate</span>]=<span class="string">"'HELLO'"</span> [<span class="attr">translateParams</span>]=<span class="string">"&#123;value: 'world'&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>或者直接写成这样：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">translate</span> [<span class="attr">translateParams</span>]=<span class="string">"&#123;value: 'world'&#125;"</span>&gt;</span>HELLO<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AngularJS/" rel="tag"># AngularJS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ionic2-backbutton/" rel="next" title="ionic2处理安卓注册硬件返回按钮">
+                <i class="fa fa-chevron-left"></i> ionic2处理安卓注册硬件返回按钮
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Shady" />
+          <p class="site-author-name" itemprop="name">Shady</p>
+           
+              <p class="site-description motion-element" itemprop="description">搬运自平常记录的笔记，反正也没人看，瞎B写点儿</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/shady-xia" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5176439990" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.magicyu.com/" title="育子" target="_blank">育子</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shady</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
